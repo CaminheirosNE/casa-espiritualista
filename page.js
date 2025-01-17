@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { Card } from "@/components/ui/card";
 
 const menuItems = [
-  { 
-    title: 'Cadastro de Membros', 
-    icon: '📝', 
+  {
+    title: 'Cadastro de Membros',
+    icon: '📝',
     path: '/cadastro',
     description: 'Cadastrar novos membros e trabalhadores'
   },
