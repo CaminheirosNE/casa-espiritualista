@@ -1,29 +1,29 @@
 {
   "name": "casa-espiritualista",
-  "versão": "0.1.0",
-  "privado": verdadeiro,
-  "roteiros": {
-    "desenvolvedor": "próximo dev",
-    "construir": "próxima construção",
-    "começar": "próximo começo"
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "dependências": {
-    "próximo": "14.4.7",
-    "reagir": "18.2.0",
-    "reação-dom": "18.2.0",
-    "radix-ui/react-slot": "1.0.2",
-    "classe-variância-autoridade": "0.7.0",
+  "dependencies": {
+    "next": "14.4.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@radix-ui/react-slot": "1.0.2",
+    "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
-    "lucide-reagir": "0.263.1",
-    "recarga": "2.7.2",
-    "fusão de vento de cauda": "1.14.0",
-    "tailwindcss-animado": "1.0.6",
-    "fusão-adaptativa": "^1.0.0",
-    "classe-variancia-funcao": "^0.7.0"
+    "lucide-react": "0.263.1",
+    "recharts": "2.7.2",
+    "tailwind-merge": "1.14.0",
+    "tailwindcss-animated": "1.0.6",
+    "tailwind-merge": "^1.0.0",
+    "class-variance-authority": "^0.7.0"
   },
-  "devDependências": {
-    "autoprefixador": "10.4.14",
+  "devDependencies": {
+    "autoprefixer": "10.4.14",
     "postcss": "8.4.24",
-    "vento de cauda css": "3.3.2"
+    "tailwindcss": "3.3.2"
   }
 }
