@@ -59,7 +59,7 @@ const HomePage = () => {
       <header className="pt-8 pb-6 text-center">
         <div className="mx-auto w-[100px] h-[100px] mb-8 bg-white rounded-full shadow-lg p-4 relative">
           <Image
-            src="/logo.png"
+            src="/CM.png"
             alt="CM Logo"
             fill
             className="object-contain p-2"
