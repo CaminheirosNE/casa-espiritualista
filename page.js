@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card } from "@/components/ui/card";
+import { Card } from "../components/ui/card";
 
 const menuItems = [
   { 
@@ -40,10 +40,10 @@ const menuItems = [
     description: 'Gestão de mensalidades e gastos'
   },
   { 
-  title: 'Relatório de Membros',
-  icon: '👥',
-  path: '/membros-relatorio',
-  description: 'Gerenciar membros cadastrados'
+    title: 'Relatório de Membros',
+    icon: '👥',
+    path: '/membros-relatorio',
+    description: 'Gerenciar membros cadastrados'
   },
   { 
     title: 'Relatórios', 
@@ -65,17 +65,12 @@ const HomePage = () => {
           />
         </div>
         
-        <h1 className="text-4xl font-bold mb-12 px-4 text-center" 
-            style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
-              color: '#000080',
-              letterSpacing: '0.05em'
-            }}>
+        <h1 className="text-4xl font-bold mb-12 px-4 text-center text-blue-900">
           BEM VINDO TRABALHADORES<br />
           CAMINHEIROS DA NOVA ERA
         </h1>
       </header>
-
+      
       <main className="max-w-4xl mx-auto px-4 pb-16">
         <div className="space-y-4">
           {menuItems.map((item) => (
@@ -96,7 +91,7 @@ const HomePage = () => {
           ))}
         </div>
       </main>
-
+      
       <footer className="text-center py-4 text-sm text-gray-600">
         <p>Administrador: Solange Schvarz</p>
       </footer>
