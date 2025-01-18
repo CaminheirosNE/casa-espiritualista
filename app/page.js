@@ -1,6 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { Card } from "@/components/ui/card";
 
 const menuItems = [
   { 
@@ -40,10 +40,10 @@ const menuItems = [
     description: 'Gestão de mensalidades e gastos'
   },
   { 
-  title: 'Relatório de Membros',
-  icon: '👥',
-  path: '/membros-relatorio',
-  description: 'Gerenciar membros cadastrados'
+    title: 'Relatório de Membros',
+    icon: '👥',
+    path: '/membros-relatorio',
+    description: 'Gerenciar membros cadastrados'
   },
   { 
     title: 'Relatórios', 
@@ -57,30 +57,25 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <header className="pt-8 pb-6 text-center">
-        <div className="mx-auto w-[100px] h-[100px] mb-8 bg-white rounded-full shadow-lg p-4">
-          <img
-            src="/api/placeholder/100/100"
+        <div className="mx-auto w-[100px] h-[100px] mb-8 bg-white rounded-full shadow-lg p-4 relative">
+          <Image
+            src="/logo.png"
             alt="CM Logo"
-            className="w-full h-full object-contain"
+            fill
+            className="object-contain p-2"
           />
         </div>
-        
-        <h1 className="text-4xl font-bold mb-12 px-4 text-center" 
-            style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.2)',
-              color: '#000080',
-              letterSpacing: '0.05em'
-            }}>
+        <h1 className="text-4xl font-bold mb-12 px-4 text-center text-blue-900">
           BEM VINDO TRABALHADORES<br />
           CAMINHEIROS DA NOVA ERA
         </h1>
       </header>
-
+      
       <main className="max-w-4xl mx-auto px-4 pb-16">
         <div className="space-y-4">
           {menuItems.map((item) => (
-            <Link href={item.path} key={item.title}>
-              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+            <Link href={item.path} key={item.title} className="block">
+              <div className="overflow-hidden hover:shadow-lg transition-all duration-300 bg-white rounded-lg border border-gray-200">
                 <div className="w-full h-20 text-xl font-semibold text-white 
                              bg-blue-600 hover:bg-blue-700 
                              flex items-center gap-6
@@ -91,7 +86,7 @@ const HomePage = () => {
                     <div className="text-sm font-normal opacity-80">{item.description}</div>
                   </div>
                 </div>
-              </Card>
+              </div>
             </Link>
           ))}
         </div>
