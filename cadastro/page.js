@@ -1,17 +1,19 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useRouter } from 'next/navigation';
 
-const MemberRegistration = () => {
+export default function CadastroPage() {
+  const router = useRouter();
   const [nextCode, setNextCode] = useState('CM0001');
   const [formData, setFormData] = useState({
     codigo: '',
     nome: '',
-    tipo: 'C',
-    sexo: '',
     dataNascimento: '',
+    sexo: '',
     telefone: ''
   });
   const [error, setError] = useState('');
@@ -19,6 +21,7 @@ const MemberRegistration = () => {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
+    // Aqui posteriormente vamos carregar os membros do banco para manter a sequência
     const existingMembers = [];
     setMembers(existingMembers);
     
@@ -43,7 +46,7 @@ const MemberRegistration = () => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!formData.nome || !formData.dataNascimento || !formData.sexo || !formData.telefone) {
@@ -56,22 +59,32 @@ const MemberRegistration = () => {
       return;
     }
 
-    const newMember = { ...formData, codigo: nextCode };
-    setMembers([...members, newMember]);
-    
-    const nextNumber = parseInt(nextCode.substring(2)) + 1;
-    setNextCode(`CM${String(nextNumber).padStart(4, '0')}`);
-    
-    setFormData({
-      codigo: '',
-      nome: '',
-      tipo: 'C',
-      sexo: '',
-      dataNascimento: '',
-      telefone: ''
-    });
-    setSuccess('Membro cadastrado com sucesso!');
-    setError('');
+    try {
+      const newMember = { 
+        ...formData, 
+        codigo: nextCode,
+        dataCadastro: new Date().toISOString()
+      };
+
+      setMembers([...members, newMember]);
+      
+      const nextNumber = parseInt(nextCode.substring(2)) + 1;
+      setNextCode(`CM${String(nextNumber).padStart(4, '0')}`);
+      
+      setFormData({
+        codigo: '',
+        nome: '',
+        dataNascimento: '',
+        sexo: '',
+        telefone: ''
+      });
+      
+      setSuccess('Membro cadastrado com sucesso!');
+      setError('');
+    } catch (err) {
+      setError('Erro ao cadastrar membro. Tente novamente.');
+      console.error('Erro:', err);
+    }
   };
 
   return (
@@ -82,7 +95,7 @@ const MemberRegistration = () => {
             <h2 className="text-2xl font-bold text-blue-900">Cadastro de Membros</h2>
             <Button 
               variant="outline"
-              onClick={() => window.location.href = '/'}
+              onClick={() => router.push('/')}
               className="text-blue-600 hover:text-blue-700"
             >
               Voltar
@@ -104,7 +117,7 @@ const MemberRegistration = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="bg-gray-50 p-4 rounded-lg">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Código do Membro
+                Número de Identificação
               </label>
               <Input
                 value={nextCode}
@@ -128,6 +141,19 @@ const MemberRegistration = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
+                Data de Nascimento *
+              </label>
+              <Input
+                name="dataNascimento"
+                type="date"
+                value={formData.dataNascimento}
+                onChange={handleInputChange}
+                className="bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Sexo *
               </label>
               <select
@@ -140,19 +166,6 @@ const MemberRegistration = () => {
                 <option value="M">Masculino</option>
                 <option value="F">Feminino</option>
               </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Data de Nascimento *
-              </label>
-              <Input
-                name="dataNascimento"
-                type="date"
-                value={formData.dataNascimento}
-                onChange={handleInputChange}
-                className="bg-white"
-              />
             </div>
 
             <div>
@@ -182,6 +195,4 @@ const MemberRegistration = () => {
       </div>
     </div>
   );
-};
-
-export default MemberRegistration;
+}
