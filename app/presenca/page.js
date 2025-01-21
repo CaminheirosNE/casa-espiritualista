@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Card } from "/components/ui/card";
-import { Button } from "/components/ui/button";
-import { Input } from "/components/ui/input";
+import { Card } from "components/ui/card";
+import { Button } from "components/ui/button";
+import { Input } from "components/ui/input";
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Search, CheckCircle, Plus, Calendar, Trash2 } from "lucide-react";
 
