@@ -21,5 +21,13 @@ jobs:
     - name: Install dependencies
       run: npm install
       
+    - name: Setup Shadcn UI
+      run: |
+        npx shadcn-ui@latest init -y
+        npx shadcn-ui@latest add card
+        npx shadcn-ui@latest add button
+        npx shadcn-ui@latest add input
+        npx shadcn-ui@latest add alert
+      
     - name: Build project
       run: npm run build
