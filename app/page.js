@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import { Card } from "@/components/ui/card";
-import { menuItems } from '@/app/lib/constants';
+import { menuItems } from '@/lib/constants';
 
 const MenuCard = ({ title, icon, description }) => (
   <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
