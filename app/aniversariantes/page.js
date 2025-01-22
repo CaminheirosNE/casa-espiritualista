@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
@@ -8,7 +8,20 @@ import { MessageCircle, Pencil, Save } from "lucide-react";
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useRouter } from 'next/navigation';
 
-// Componente separado para o cartão de aniversariante
+// Função auxiliar para calcular idade
+const calculateAge = (birthDate) => {
+  const today = new Date();
+  const birth = new Date(birthDate);
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+  
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  return age;
+};
+
+// Componente do cartão de aniversariante
 const BirthdayCard = ({ title, members, showDate = false, onSendMessage }) => (
   <Card className="p-6 mb-6">
     <h3 className="text-xl font-bold text-blue-900 mb-4">{title}</h3>
@@ -44,7 +57,8 @@ const BirthdayCard = ({ title, members, showDate = false, onSendMessage }) => (
   </Card>
 );
 
-const BirthdayScreen = () => {
+// Componente principal
+export default function AniversariantesPage() {
   const router = useRouter();
   const [members, setMembers] = useState([]);
   const [birthdayMessage, setBirthdayMessage] = useState(() => {
@@ -57,27 +71,25 @@ const BirthdayScreen = () => {
   const [isEditingMessage, setIsEditingMessage] = useState(false);
   const [newMessage, setNewMessage] = useState(birthdayMessage);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const mockMembers = [
-      { codigo: 'CM0001', nome: 'João Silva', dataNascimento: '1990-01-12', telefone: '(11) 98765-4321' },
-      { codigo: 'CM0002', nome: 'Maria Santos', dataNascimento: '1985-01-22', telefone: '(11) 91234-5678' },
-      { codigo: 'CM0003', nome: 'Pedro Oliveira', dataNascimento: '1995-02-10', telefone: '(11) 99876-5432' },
-    ];
-    setMembers(mockMembers);
-  }, []);
-
-  const calculateAge = (birthDate) => {
-    const today = new Date();
-    const birth = new Date(birthDate);
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-      age--;
+    async function loadAniversariantes() {
+      try {
+        const response = await fetch('/api/aniversariantes');
+        if (!response.ok) {
+          throw new Error('Falha ao carregar aniversariantes');
+        }
+        const data = await response.json();
+        setMembers(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     }
-    return age;
-  };
+    loadAniversariantes();
+  }, []);
 
   const handleSaveMessage = () => {
     if (newMessage.trim()) {
@@ -108,6 +120,22 @@ const BirthdayScreen = () => {
     } catch (err) {
       setError('Erro ao tentar abrir o WhatsApp');
     }
+  };
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>Erro: {error}</div>;
+
+  const isBirthday = (date) => {
+    const today = new Date();
+    const birthDate = new Date(date);
+    return today.getDate() === birthDate.getDate() && 
+           today.getMonth() === birthDate.getMonth();
+  };
+
+  const isCurrentMonth = (date) => {
+    const today = new Date();
+    const birthDate = new Date(date);
+    return today.getMonth() === birthDate.getMonth();
   };
 
   return (
@@ -187,6 +215,4 @@ const BirthdayScreen = () => {
       </div>
     </div>
   );
-};
-
-export default BirthdayScreen;
+}
