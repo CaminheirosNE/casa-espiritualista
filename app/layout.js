@@ -1,8 +1,8 @@
-import './styles/globals.css'
+import './globals.css'
 
 export const metadata = {
   title: 'Casa Espiritualista',
-  description: 'Sistema de gerenciamento para casa espírita',
+  description: 'Sistema da Casa Espiritualista',
 }
 
 export default function RootLayout({ children }) {
