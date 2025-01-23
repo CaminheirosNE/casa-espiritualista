@@ -1,25 +1,31 @@
 "use client"
 
 import * as React from "react"
-import * as AlertDialog from "@radix-ui/react-alert-dialog"
 import { cn } from "@/lib/utils"
 
-const Alert = React.forwardRef(({ className, variant, ...props }, ref) => (
+const Alert = React.forwardRef(({ className, variant = "default", ...props }, ref) => (
   <div
     ref={ref}
     role="alert"
     className={cn(
-      "relative w-full rounded-lg border border-gray-200 p-4",
-      {
-        "bg-gray-50 text-gray-900": variant === "default",
-        "border-red-500 bg-red-50 text-red-900": variant === "destructive",
-      },
+      "relative w-full rounded-lg border p-4",
+      variant === "default" && "bg-background text-foreground",
+      variant === "destructive" && "border-destructive bg-destructive/10 text-destructive",
       className
     )}
     {...props}
   />
 ))
 Alert.displayName = "Alert"
+
+const AlertTitle = React.forwardRef(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = "AlertTitle"
 
 const AlertDescription = React.forwardRef(({ className, ...props }, ref) => (
   <div
@@ -30,4 +36,4 @@ const AlertDescription = React.forwardRef(({ className, ...props }, ref) => (
 ))
 AlertDescription.displayName = "AlertDescription"
 
-export { Alert, AlertDescription }
+export { Alert, AlertTitle, AlertDescription }
